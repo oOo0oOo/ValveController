@@ -2,7 +2,7 @@ import unittest
 import usb_valves
 import time
 
-port = 'COM3'
+port = 'COM4'
 
 class TestUSBValves(unittest.TestCase):
 
@@ -82,13 +82,13 @@ class TestUSBValves(unittest.TestCase):
 			for pin in range(1,9):
 				all_open[(p, pin)] = True
 
-		for i in range(20):
+		for i in range(50):
 			# Set state all open
 			self.cont.set_state(all_open)
-			time.sleep(0.05)
+			time.sleep(0.01)
 			# Reset to default state
 			self.cont.reset_default()
-			time.sleep(0.05)
+			time.sleep(0.01)
 
 
 if __name__ == '__main__':

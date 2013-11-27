@@ -25,14 +25,10 @@ class Controller(object):
 		self.usbio = Serial(device, timeout= 1)
 		self.usbio.write(pack('B', 1))
 
-		# put all pins in output mode
-		for port in ['A', 'B', 'C']:
-			self.usbio.write(pack('ccB', '!', port, 255))
-
 		self.default_state = {}
 		self.current_state = {}
 
-		print 'Successfully connected to device on {}.'.format(device)
+		print 'Successfully connected to {} on {}.'.format(self.identify(), device)
 
 	def close(self):
 		'''
@@ -129,7 +125,7 @@ class Controller(object):
 				self.current_state[adress] = st
 
 		state_nums = {'A': 0, 'B': 0, 'C': 0}
-		for (port, pin), st in self.current_state:
+		for (port, pin), st in self.current_state.items():
 			num = 0
 			if st: num = 2 ** (pin - 1)
 			state_nums[port] += num
