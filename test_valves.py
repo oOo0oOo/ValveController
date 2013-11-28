@@ -2,7 +2,7 @@ import unittest
 import usb_valves
 import time
 
-port = 'COM4'
+port = 'COM5'
 
 class TestUSBValves(unittest.TestCase):
 
