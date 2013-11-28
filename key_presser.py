@@ -42,6 +42,12 @@ while True:
     elif valve > 0:
         # Toggle valve
         controller.toggle(port, valve)
-        print 'Toggled valve: {} {}'.format(port, valve)
+        
+        # Print a nice message
+        if controller.current_state[(port, valve)]:
+            state = 'ON'
+        else:
+            state = 'OFF'
+        print 'Valve {} {}: {}'.format(port, valve, state)
 
 controller.close()
