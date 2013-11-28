@@ -2,7 +2,9 @@ from msvcrt import getch
 from usb_valves import Controller
 import time
 
-port = 'COM3'
+port = raw_input('Which COM port is the Controller connected to?\n')
+port = 'COM' + port
+
 try:
     controller = Controller(port)
 except Exception, e:
