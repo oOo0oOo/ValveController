@@ -15,29 +15,31 @@ from serial import Serial
 from struct import pack
 
 
-## To open a new serial connection we have to know the port
-## our device is connected to...
-
-port = 'COM5'
-connection = Serial(port)
-
-
-## how does a command for the controller look like:
-## pack creates a string with all arguments packed as
-## specified using the first argument ('B' in this case means Byte)
-cmd  = pack('B', 1)
-# print repr(cmd), cmd
-
-## This command puts all pins in output mode
-## Now we just need to send it to the connected controller
-connection.write(cmd)
+def prepare_controller(port = 'COM5'):
+	## To open a new serial connection we have to know the port
+	## our device is connected to...
+	connection = Serial(port)
 
 
-## Now we have to put all the pins in output mode
-for port in ['A', 'B', 'C']:
-	cmd = pack('ccB', '!', port, 0)
+	## how does a command for the controller look like:
+	## pack creates a string with all arguments packed as
+	## specified using the first argument ('B' in this case means Byte)
+	cmd  = pack('B', 1)
+	# print repr(cmd), cmd
+
+	## This command puts all pins in output mode
+	## Now we just need to send it to the connected controller
 	connection.write(cmd)
 
+
+	## Now we have to put all the pins in output mode
+	for port in ['A', 'B', 'C']:
+		cmd = pack('ccB', '!', port, 0)
+		connection.write(cmd)
+
+	return connection
+
+connection = prepare_controller()
 
 ## To adress individual pins the controller uses a numbering system
 ## Here is a translation function
@@ -78,5 +80,7 @@ for i in xrange(50):
 	time.sleep(0.025)
 
 
-## Always close a serial connection
+## Always close a serial connection when you're done
 connection.close()
+
+
