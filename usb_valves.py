@@ -28,6 +28,11 @@ class Controller(object):
 		self.default_state = {}
 		self.current_state = {}
 
+		# Put all pins to output mode
+		for port in ['A', 'B', 'C']:
+			cmd = pack('ccB', '!', port, 0)
+			self.usbio.write(cmd)
+
 		print 'Successfully connected to {} on {}.'.format(self.identify(), device)
 
 	def close(self):
