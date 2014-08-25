@@ -43,10 +43,10 @@ class Controller(object):
 		self.usbio.close()
 
 	def identify(self):
-		"""
-		Request's the device's "identity." Expect a newline-terminated response similar
-		to "USB I/O 24" (directly copied from: https://code.google.com/p/python-usbio24/)
-		"""
+		'''
+			Request's the device's "identity." Expect a newline-terminated response similar
+			to "USB I/O 24" (directly copied from: https://code.google.com/p/python-usbio24/)
+		'''
 		self.usbio.write('?')
 		return self.usbio.readline().strip()
 
@@ -150,7 +150,7 @@ class Controller(object):
 
 	def activate(self, port, pin):
 		'''
-			Activate a single pin.
+			Activate a single pin/valve.
 		'''
 		adress = (port, pin)
 		if not self.current_state[adress]:
@@ -159,7 +159,7 @@ class Controller(object):
 
 	def deactivate(self, port, pin):
 		'''
-			Deactivate a single pin.
+			Deactivate a single pin/valve.
 		'''
 		adress = (port, pin)
 		if self.current_state[adress]:
@@ -168,7 +168,7 @@ class Controller(object):
 
 	def toggle(self, port, pin):
 		'''
-			Toggle single pin.
+			Toggle single pin/valve.
 		'''
 		adress = (port, pin)
 		if self.current_state[adress]:
@@ -190,6 +190,7 @@ class Controller(object):
 			Resets all valves to their default state.
 		'''
 		self.set_state(self.default_state)
+
 
 
 class PeristalticPump(object):
