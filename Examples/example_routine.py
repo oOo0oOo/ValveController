@@ -2,7 +2,7 @@ from usb_valves import Controller
 import time
 
 # Example: 8 Valves always ON (closed) on port A
-controller = Controller('COM4')
+controller = Controller('COM5')
 
 #Add all pins on all ports
 controller.add_all()
